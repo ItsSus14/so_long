@@ -16,6 +16,11 @@ int	main(int argc, char **argv)
 		write(2, "Error\nInvalid map file\n", 23);
 		return (1);
 	}
+	if (!validate_map(map)){
+		write(2, "Error\nInvalid map\n", 18);
+		free_map(map);
+		return (1);
+	}
 	i = 0;
 	while (map[i])
 	{

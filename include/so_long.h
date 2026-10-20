@@ -9,7 +9,12 @@
 
 char	**read_map(char *path);
 char	*append_char(char *line, char c);
-int		append_line(char ***map, char *line);
+int	append_line(char ***map, char *line);
 void	free_map(char **map);
+int	check_walls(char **map);
+int	validate_map(char **map);
+int	check_map(char **map);
+int	check_chars(char **map);
+int	check_elements(char **map);
 
 #endif
