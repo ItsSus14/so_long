@@ -16,5 +16,9 @@ int	validate_map(char **map);
 int	check_map(char **map);
 int	check_chars(char **map);
 int	check_elements(char **map);
+int	check_path(char **map);
+int	*find_player(char **map);
+char	**dup_map(char **map);
+void	flood_fill(char **map, int x, int y);
 
 #endif

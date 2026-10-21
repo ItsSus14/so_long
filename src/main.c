@@ -1,32 +1,29 @@
 #include "so_long.h"
+#include "mlx.h"
 
 int	main(int argc, char **argv)
 {
 	char	**map;
-	int		i;
 
 	if (argc != 2)
-	{
-		write(2, "Usage: ./so_long map.ber\n", 25);
-		return (1);
-	}
+		return (write(2, "Error\nUsage: ./so_long <map.ber>\n", 33), 1);
 	map = read_map(argv[1]);
 	if (!map)
+		return (write(2, "Error\nCould not read map\n", 25), 1);
+	if (!validate_map(map))
 	{
-		write(2, "Error\nInvalid map file\n", 23);
-		return (1);
-	}
-	if (!validate_map(map)){
 		write(2, "Error\nInvalid map\n", 18);
 		free_map(map);
 		return (1);
 	}
-	i = 0;
-	while (map[i])
+	if (!check_path(map))
 	{
-		printf("%s\n", map[i]);
-		i++;
+		write(2, "Error\nInvalid path\n", 19);
+		free_map(map);
+		return (1);
 	}
+	write(1, "Map is valid!\n", 14);
 	free_map(map);
 	return (0);
 }
+
