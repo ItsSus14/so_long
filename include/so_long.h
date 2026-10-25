@@ -6,6 +6,12 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include "mlx.h"
+# define COLOR_WALL      0x64748D
+# define COLOR_FLOOR     0xD3D3D3
+# define COLOR_PLAYER    0x00CC66
+# define COLOR_COLLECT   0xFFD700
+# define COLOR_EXIT      0x3399FF
 
 typedef struct s_game{
 	void *mlx;
@@ -28,5 +34,6 @@ void	flood_fill(char **map, int x, int y);
 void	close_game(t_game *game);
 int	handle_key(int key_code, void *param);
 void	draw_square(t_game *game, int x, int y, int size, int color);
+void	draw_map(t_game *game, char **map);
 
 #endif
