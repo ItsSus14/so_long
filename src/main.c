@@ -27,16 +27,30 @@
 	return (0);
 }*/
 
-int	main(void)
+int	main(int argc, char **argv)
 {
+	(void) argc;
 	t_game game;
+	char **map;
 
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return (1);
-	game.win = mlx_new_window(game.mlx, 800, 600, "so_long");
+	map = read_map(argv[1]);
+	if (!map)
+		return (write(2, "Error\nCould not read map\n", 25), 1);
+	int x = ft_strlen(map[0]);
+	int y = 0;
+	while(map[y])
+		y++;
+	game.win = mlx_new_window(game.mlx, (x * 64), (y *64), "so_long");
+	if(!set_images(&game)){
+		return (1);
+	}
+	draw_map(&game, map);
 	if (!game.win){
 		free(game.mlx);
+		free(game.image_floor);
 		return (1);
 	}
 	mlx_key_hook(game.win, handle_key, &game);

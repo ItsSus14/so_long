@@ -23,53 +23,32 @@ int handle_key(int keycode, void *param)
 	return (0);
 }
 
-void    draw_square(t_game *game, int x, int y, int size, int color)
-{
-    int i;
-    int j;
-
-    i = 0;
-    while (i < size)
-    {
-        j = 0;
-        while (j < size)
-        {
-            mlx_pixel_put(game->mlx, game->win, x + i, y + j, color);
-            j++;
-        }
-        i++;
-    }
-}
-
 void    draw_map(t_game *game, char **map)
 {
-    int     row;
-    int     col;
-    int     tile_size;
-    int     color;
+	int     row;
+	int     col;
+	int     square_size;
+	void	*img;
 
-    row = 0;
-    tile_size = 64;
-    while (map[row])
-    {
-        col = 0;
-        while (map[row][col])
-        {
-            if (map[row][col] == '1')
-                color = COLOR_WALL;
-            else if (map[row][col] == 'P')
-                color = COLOR_PLAYER;
-            else if (map[row][col] == 'E')
-                color = COLOR_EXIT;
-            else if (map[row][col] == 'C')
-                color = COLOR_COLLECT;
-            else
-                color = COLOR_FLOOR;
-            draw_square(game, col * tile_size, row * tile_size,
-                tile_size, color);
-            col++;
-        }
-        row++;
-    }
+	row = 0;
+	square_size = 64;
+	while (map[row]){
+		col = 0;
+		while (map[row][col]){
+			if (map[row][col] == '1')
+                		img = game->image_wall;
+			else if (map[row][col] == 'P')
+				img = game->image_player;
+			else if (map[row][col] == 'E')
+				img = game->image_exit;
+			else if (map[row][col] == 'C')
+				img = game->image_collect;
+			else
+				img = game->image_floor;
+		mlx_put_image_to_window(game->mlx, game->win, img, col * square_size, row * square_size);
+			col++;
+		}
+		row++;
+	}
 }
 

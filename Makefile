@@ -14,7 +14,8 @@ MLX_FLAGS = -lXext -lX11 -lm -lbsd
 SRCS = $(wildcard src/*.c) \
        $(wildcard src/map/*.c) \
        $(wildcard src/utils/*.c) \
-	$(wildcard src/hooks/*.c)
+	$(wildcard src/hooks/*.c) \
+	$(wildcard src/render/*.c)
 
 OBJS = $(SRCS:.c=.o)
 
