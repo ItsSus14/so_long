@@ -12,6 +12,24 @@ void *convert_image(t_game *game, char *path){
 	return image;
 }
 
+void set_player_pos(t_game *game){
+	int x;
+	int y;
+	y = 0;
+	while(game->map[y]){
+		x = 0;
+		while(game->map[y][x]){
+			if(game->map[y][x] == 'P'){
+				game->player_x = x;
+				game->player_y = y;
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 int set_images(t_game *game){
 	game->image_floor = NULL;
 	game->image_collect = NULL;

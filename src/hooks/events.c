@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "so_long.h"	
 
 void    close_game(t_game *game)
 {
@@ -12,18 +12,36 @@ int handle_key(int keycode, void *param)
 	game = (t_game *)param;
 	if (keycode == 65307)
         	close_game(game);
-	else if (keycode == 119 || keycode == 65362)
-    		printf("up\n");
-	else if (keycode == 97 || keycode == 65361)
-		printf("left\n");
-	else if (keycode == 115 || keycode == 65364)
-        	printf("down\n");
-	else if (keycode == 100 || keycode == 65363)
-        	printf("right\n");
+	else if (keycode == 119 || keycode == 65362){
+		move_player(game, game->player_x, game->player_y - 1);
+		draw_map(game);	
+	}
+	else if (keycode == 97 || keycode == 65361){
+		move_player(game, game->player_x - 1, game->player_y);
+		draw_map(game);
+	}
+	else if (keycode == 115 || keycode == 65364){
+		move_player(game, game->player_x, game->player_y + 1);
+		draw_map(game);
+        }
+	else if (keycode == 100 || keycode == 65363){
+		move_player(game, game->player_x + 1, game->player_y);
+		draw_map(game);
+	}
 	return (0);
 }
 
-void    draw_map(t_game *game, char **map)
+int	move_player(t_game *game, int x, int y){
+	if(game->map[y][x] == '1')
+		return (0);
+	game->map[game->player_y][game->player_x] = '0';
+	game->map[y][x] = 'P';
+	game->player_y = y;
+	game->player_x = x;
+	return 1;
+}
+
+void    draw_map(t_game *game)
 {
 	int     row;
 	int     col;
@@ -32,16 +50,16 @@ void    draw_map(t_game *game, char **map)
 
 	row = 0;
 	square_size = 64;
-	while (map[row]){
+	while (game->map[row]){
 		col = 0;
-		while (map[row][col]){
-			if (map[row][col] == '1')
+		while (game->map[row][col]){
+			if (game->map[row][col] == '1')
                 		img = game->image_wall;
-			else if (map[row][col] == 'P')
+			else if (game->map[row][col] == 'P')
 				img = game->image_player;
-			else if (map[row][col] == 'E')
+			else if (game->map[row][col] == 'E')
 				img = game->image_exit;
-			else if (map[row][col] == 'C')
+			else if (game->map[row][col] == 'C')
 				img = game->image_collect;
 			else
 				img = game->image_floor;

@@ -14,13 +14,16 @@
 # define COLOR_EXIT      0x3399FF
 
 typedef struct s_game{
-	void *mlx;
-	void *win;
-	void *image_floor;
-	void *image_collect;
-	void *image_player;
-	void *image_exit;
-	void *image_wall;
+	void	*mlx;
+	void	*win;
+	void	*image_floor;
+	void	*image_collect;
+	void	*image_player;
+	void	*image_exit;
+	void	*image_wall;
+	int	player_x;
+	int	player_y;
+	char	**map;
 }t_game;
 
 char	**read_map(char *path);
@@ -38,9 +41,11 @@ char	**dup_map(char **map);
 void	flood_fill(char **map, int x, int y);
 void	close_game(t_game *game);
 int	handle_key(int key_code, void *param);
-void	draw_map(t_game *game, char **map);
+void	draw_map(t_game *game);
 void	*convert_image(t_game *game, char *path);
 int	set_images(t_game *game);
 void	destroy_images(t_game *game);
+int	move_player(t_game *game, int x, int y);
+void	set_player_pos(t_game *game);
 
 #endif
