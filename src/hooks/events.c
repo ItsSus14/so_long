@@ -13,31 +13,42 @@ int handle_key(int keycode, void *param)
 	if (keycode == 65307)
         	close_game(game);
 	else if (keycode == 119 || keycode == 65362){
-		move_player(game, game->player_x, game->player_y - 1);
-		draw_map(game);	
+		if(move_player(game, game->player_x, game->player_y - 1))
+			draw_map(game);	
 	}
 	else if (keycode == 97 || keycode == 65361){
-		move_player(game, game->player_x - 1, game->player_y);
-		draw_map(game);
+		if(move_player(game, game->player_x - 1, game->player_y))
+			draw_map(game);
 	}
 	else if (keycode == 115 || keycode == 65364){
-		move_player(game, game->player_x, game->player_y + 1);
-		draw_map(game);
+		if(move_player(game, game->player_x, game->player_y + 1))
+			draw_map(game);
         }
 	else if (keycode == 100 || keycode == 65363){
-		move_player(game, game->player_x + 1, game->player_y);
-		draw_map(game);
+		if(move_player(game, game->player_x + 1, game->player_y))
+			draw_map(game);
 	}
 	return (0);
 }
 
 int	move_player(t_game *game, int x, int y){
+	if(y < 0 || game->map_height <= y || x < 0 || game->map_width <= x)
+		return (0);
 	if(game->map[y][x] == '1')
 		return (0);
+	if(game->map[y][x] == 'C')
+		game->collectibles--;
+	if(game->map[y][x] == 'E'){
+		if(game->collectibles > 0)
+			return (0);
+		close_game(game);
+	}
 	game->map[game->player_y][game->player_x] = '0';
 	game->map[y][x] = 'P';
 	game->player_y = y;
 	game->player_x = x;
+	game->moves++;
+	ft_printf("Move : %d\n", game->moves);
 	return 1;
 }
 

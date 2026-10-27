@@ -7,13 +7,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "mlx.h"
-# define COLOR_WALL      0x64748D
-# define COLOR_FLOOR     0xD3D3D3
-# define COLOR_PLAYER    0x00CC66
-# define COLOR_COLLECT   0xFFD700
-# define COLOR_EXIT      0x3399FF
-
-typedef struct s_game{
+# include "ft_printf.h"
+typedef struct	s_game{
 	void	*mlx;
 	void	*win;
 	void	*image_floor;
@@ -23,8 +18,12 @@ typedef struct s_game{
 	void	*image_wall;
 	int	player_x;
 	int	player_y;
+	int	map_width;
+	int	map_height;
 	char	**map;
-}t_game;
+	int	collectibles;
+	int	moves;
+}	t_game;
 
 char	**read_map(char *path);
 char	*append_char(char *line, char c);
@@ -47,5 +46,8 @@ int	set_images(t_game *game);
 void	destroy_images(t_game *game);
 int	move_player(t_game *game, int x, int y);
 void	set_player_pos(t_game *game);
+int	init_game(t_game *game, char *map);
+void	count_collectibles(t_game *game);
+void	free_game(t_game *game);
 
 #endif

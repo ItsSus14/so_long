@@ -10,6 +10,8 @@ int validate_map(char **map){
 		return 0;
 	if(!check_walls(map))
 		return 0;
+	if(!check_path(map))
+		return 0;
 	return 1;	
 }
 
