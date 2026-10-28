@@ -43,4 +43,5 @@ void	count_collectibles(t_game *game){
 
 void	free_game(t_game *game){
 	free_map(game->map);
+	game->map = NULL;
 }
